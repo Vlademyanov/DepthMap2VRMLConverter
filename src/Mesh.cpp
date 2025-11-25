@@ -51,6 +51,19 @@ void Mesh::buildFromDepthMap(const DepthMap& depthMap) {
     computeNormals();
 }
 
+BoundingBox Mesh::getBoundingBox() const {
+    BoundingBox bbox;
+    bbox.min = glm::vec3(1e9f);
+    bbox.max = glm::vec3(-1e9f);
+
+    for (const auto& v : m_vertices) {
+        bbox.min = glm::min(bbox.min, v.position);
+        bbox.max = glm::max(bbox.max, v.position);
+    }
+
+    return bbox;
+}
+
 void Mesh::computeNormals() {
     for (auto& vertex : m_vertices) {
         vertex.normal = glm::vec3(0.0f);

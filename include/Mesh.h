@@ -23,13 +23,24 @@ struct Triangle {
     }
 };
 
+struct BoundingBox {
+    glm::vec3 min;
+    glm::vec3 max;
+    glm::vec3 center() const { return (min + max) * 0.5f; }
+    glm::vec3 size() const { return max - min; }
+    float maxDimension() const {
+        glm::vec3 s = size();
+        return glm::max(glm::max(s.x, s.y), s.z);
+    }
+};
+
 class Mesh {
 public:
     Mesh();
     ~Mesh();
 
     void buildFromDepthMap(const DepthMap& depthMap);
-
+    BoundingBox getBoundingBox() const;
     void computeNormals();
 
     const std::vector<Vertex>& getVertices() const { return m_vertices; }
