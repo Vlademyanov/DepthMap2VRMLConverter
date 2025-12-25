@@ -55,8 +55,10 @@ bool Renderer::initialize(int width, int height, const std::string& title) {
     glfwSetKeyCallback(m_window, keyCallback);
 
     glewExperimental = GL_TRUE;
-    if (glewInit() != GLEW_OK) {
-        std::cerr << "GLEW init error" << std::endl;
+    if (glewInit() != GLEW_OK && glewInit() != 4) {
+        std::cerr << "GLEW init error: " << std::endl;
+        glfwDestroyWindow(m_window);
+        glfwTerminate();
         return false;
     }
 
@@ -106,20 +108,9 @@ void Renderer::loadMesh(const Mesh& mesh) {
         indexData.push_back(t.indices[2]);
     }
 
-    glm::vec3 minBounds(1e9f);
-    glm::vec3 maxBounds(-1e9f);
-
-    for (const auto& v : vertices) {
-        minBounds = glm::min(minBounds, v.position);
-        maxBounds = glm::max(maxBounds, v.position);
-    }
-
-    glm::vec3 center = (minBounds + maxBounds) * 0.5f;
-    glm::vec3 size = maxBounds - minBounds;
-    float maxSize = glm::max(glm::max(size.x, size.y), size.z);
-
-    m_cameraTarget = center;
-    m_cameraPos = center + glm::vec3(0.0f, 0.0f, maxSize * RenderConfig::CAMERA_DISTANCE_MULTIPLIER);
+    BoundingBox bbox = mesh.getBoundingBox();
+    m_cameraTarget = bbox.center();
+    m_cameraPos = bbox.center() + glm::vec3(0.0f, 0.0f,bbox.maxDimension() * RenderConfig::CAMERA_DISTANCE_MULTIPLIER);
 
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
