@@ -1,0 +1,37 @@
+{
+  "inputFile": "DepthMap_7.dat",
+  "outputFile": "output.ply",
+  "exportFormat": "ply",
+  "lightingModel": "oren-nayar",
+  "enableVisualization": true,
+
+  "camera": {
+    "position": [0, 50, 150],
+    "target": [32, 32, 0],
+    "up": [0, 1, 0],
+    "fov": 50,
+    "nearPlane": 0.1,
+    "farPlane": 10000,
+    "projectionType": "perspective"
+  },
+
+  "light": {
+    "direction": [1, 2, 1],
+    "color": [1.0, 0.95, 0.9],
+    "intensity": 1.0
+  },
+
+  "renderImage": {
+    "enabled": true,
+    "width": 1920,
+    "height": 1080,
+    "outputFile": "render_oren_nayar.bmp"
+  },
+
+  "material": {
+    "roughness": 0.8,
+    "diffuseColor": [0.6, 0.7, 0.8],
+    "specularColor": [0.5, 0.5, 0.5],
+    "shininess": 8.0
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "inputFile": "DepthMap_7.dat",
+  "outputFile": "output.stl",
+  "exportFormat": "stl",
+  "lightingModel": "lambert",
+  "enableVisualization": false,
+
+  "camera": {
+    "position": [0, 0, 150],
+    "target": [32, 32, 0],
+    "up": [0, 1, 0],
+    "fov": 45,
+    "nearPlane": 0.1,
+    "farPlane": 10000,
+    "projectionType": "perspective"
+  },
+
+  "light": {
+    "direction": [0.5, 1, 0.5],
+    "color": [1.0, 1.0, 1.0],
+    "intensity": 1.2
+  },
+
+  "renderImage": {
+    "enabled": true,
+    "width": 800,
+    "height": 600,
+    "outputFile": "render_lambert.bmp"
+  },
+
+  "material": {
+    "roughness": 0.3,
+    "diffuseColor": [0.8, 0.6, 0.4],
+    "specularColor": [1.0, 1.0, 1.0],
+    "shininess": 16.0
+  }
+}
