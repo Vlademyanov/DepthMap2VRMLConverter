@@ -27,27 +27,23 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glew)
 
-    set(GLEW_DIR ${glew_SOURCE_DIR})
-    set(GLEW_INCLUDE_DIR ${GLEW_DIR}/include)
+set(GLEW_DIR ${glew_SOURCE_DIR})
+set(GLEW_INCLUDE_DIR ${GLEW_DIR}/include)
+set(GLEW_SOURCE ${GLEW_DIR}/src/glew.c)
 
-    set(GLEW_SOURCE ${GLEW_DIR}/src/glew.c)
+add_library(glew_static STATIC ${GLEW_SOURCE})
+target_include_directories(glew_static PUBLIC
+        $<BUILD_INTERFACE:${GLEW_INCLUDE_DIR}>
+        $<INSTALL_INTERFACE:include>
+)
+target_compile_definitions(glew_static PUBLIC GLEW_STATIC)
 
-    add_library(glew_static STATIC ${GLEW_SOURCE})
-
-    target_include_directories(glew_static PUBLIC
-            $<BUILD_INTERFACE:${GLEW_INCLUDE_DIR}>
-            $<INSTALL_INTERFACE:include>
-    )
-
-    target_compile_definitions(glew_static PUBLIC GLEW_STATIC)
-
-    if(WIN32)
-        target_link_libraries(glew_static PUBLIC opengl32)
-    else()
-        find_package(OpenGL REQUIRED)
-        target_link_libraries(glew_static PUBLIC OpenGL::GL)
-    endif()
-
+if(WIN32)
+    target_link_libraries(glew_static PUBLIC opengl32)
+else()
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(glew_static PUBLIC OpenGL::GL)
+endif()
 
 # GLM
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
@@ -59,22 +55,46 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glm)
 
+# nlohmann/json
+FetchContent_Declare(
+        json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.11.3
+        GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(json)
+
 set(SOURCES
         src/main.cpp
         src/DepthMap.cpp
         src/Mesh.cpp
-        src/VRMLExporter.cpp
         src/Renderer.cpp
         src/ShaderLoader.cpp
+        src/ConfigLoader.cpp
+        src/LightingModel.cpp
+        src/ImageRenderer.cpp
+        src/BMPWriter.cpp
+        src/Exporter.cpp
+        src/STLExporter.cpp
+        src/VRMLExporter.cpp
+        src/PLYExporter.cpp
 )
 
 set(HEADERS
         include/DepthMap.h
         include/Mesh.h
-        include/VRMLExporter.h
         include/Renderer.h
         include/ShaderLoader.h
         include/RenderConfig.h
+        include/Config.h
+        include/ConfigLoader.h
+        include/LightingModel.h
+        include/ImageRenderer.h
+        include/BMPWriter.h
+        include/Exporter.h
+        include/STLExporter.h
+        include/VRMLExporter.h
+        include/PLYExporter.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
@@ -87,6 +107,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         glfw
         glew_static
         glm::glm
+        nlohmann_json::nlohmann_json
 )
 
 if(WIN32)

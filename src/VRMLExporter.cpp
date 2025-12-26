@@ -54,5 +54,6 @@ bool VRMLExporter::exportToFile(const std::string& filename, const Mesh& mesh) {
     file << "}\n";
 
     file.close();
+    std::cout << "Mesh exported to " << filename << " (VRML format)" << std::endl;
     return true;
 }

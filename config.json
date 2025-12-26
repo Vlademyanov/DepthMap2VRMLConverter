@@ -1,0 +1,35 @@
+{
+  "input": {
+    "depthMapFile": "DepthMap_7.dat"
+  },
+  "output": {
+    "meshFile": "output.stl",
+    "meshFormat": "stl",
+    "imageFile": "output.bmp",
+    "imageWidth": 1024,
+    "imageHeight": 768
+  },
+  "lighting": {
+    "model": "phong",
+    "direction": [0.5, -0.7, 1.0],
+    "color": [1.0, 1.0, 1.0],
+    "intensity": 1.0,
+    "ambientStrength": 0.3,
+    "diffuseStrength": 0.7,
+    "specularStrength": 0.5,
+    "shininess": 32.0,
+    "roughness": 0.5
+  },
+  "camera": {
+    "position": [0.0, 0.0, 0.0],
+    "target": [0.0, 0.0, 0.0],
+    "up": [0.0, 1.0, 0.0],
+    "fov": 45.0,
+    "near": 0.1,
+    "far": 10000.0
+  },
+  "rendering": {
+    "backgroundColor": [0.1, 0.1, 0.15],
+    "objectColor": [0.7, 0.7, 0.9]
+  }
+}

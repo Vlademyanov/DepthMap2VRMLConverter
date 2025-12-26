@@ -1,0 +1,35 @@
+{
+  "input": {
+    "depthMapFile": "DepthMap_7.dat"
+  },
+  "output": {
+    "meshFile": "output_oren_nayar.ply",
+    "meshFormat": "ply",
+    "imageFile": "output_oren_nayar.bmp",
+    "imageWidth": 1280,
+    "imageHeight": 720
+  },
+  "lighting": {
+    "model": "oren-nayar",
+    "direction": [0.0, -0.3, 1.0],
+    "color": [1.0, 1.0, 1.0],
+    "intensity": 1.0,
+    "ambientStrength": 0.25,
+    "diffuseStrength": 0.75,
+    "specularStrength": 0.3,
+    "shininess": 16.0,
+    "roughness": 0.7
+  },
+  "camera": {
+    "position": [0.0, 0.0, 0.0],
+    "target": [0.0, 0.0, 0.0],
+    "up": [0.0, 1.0, 0.0],
+    "fov": 50.0,
+    "near": 0.1,
+    "far": 10000.0
+  },
+  "rendering": {
+    "backgroundColor": [0.15, 0.15, 0.2],
+    "objectColor": [0.6, 0.7, 0.8]
+  }
+}

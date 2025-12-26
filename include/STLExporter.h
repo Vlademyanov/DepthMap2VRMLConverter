@@ -2,7 +2,7 @@
 
 #include "Exporter.h"
 
-class VRMLExporter : public IExporter {
+class STLExporter : public IExporter {
 public:
     bool exportToFile(const std::string& filename, const Mesh& mesh) override;
 };
